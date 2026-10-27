@@ -1,50 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.slick-slide > div {
-  padding: 0 6px !important;
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-950 font-sans text-white/90 antialiased;
+    background-image: radial-gradient(
+        1200px 600px at 10% -10%,
+        rgba(242, 196, 109, 0.06),
+        transparent 60%
+      ),
+      radial-gradient(900px 500px at 110% 10%, rgba(255, 122, 147, 0.05), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-accent/80 text-ink-950;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    border: 3px solid #07070b;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(242, 196, 109, 0.6);
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent/70 ring-offset-2 ring-offset-ink-950;
+  }
 }
 
-.slick-list {
-  padding: 0 0px;
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-300 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-ink-950 hover:bg-accent-soft hover:shadow-glow;
+  }
+  .btn-ghost {
+    @apply btn glass text-white hover:bg-white/10;
+  }
+  .btn-icon {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/80 backdrop-blur-xl transition hover:border-accent/50 hover:text-accent disabled:opacity-30;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/70 transition hover:border-white/25 hover:text-white;
+  }
+  .chip-active {
+    @apply border-accent/60 bg-accent/15 text-accent hover:text-accent;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.25em] text-accent/90;
+  }
+
+  .heading {
+    @apply font-display text-2xl font-semibold tracking-tight text-white md:text-3xl;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent-soft via-accent to-rose-glow bg-clip-text text-transparent;
+  }
+
+  .select {
+    @apply h-10 appearance-none rounded-full border border-white/10 bg-white/[0.04] bg-no-repeat pl-4 pr-9 text-sm text-white/80 transition hover:border-white/25 focus:border-accent/60;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23f2c46d' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 0.9rem center;
+  }
+  .select option {
+    @apply bg-ink-800 text-white;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden bg-white/[0.06];
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/[0.06] to-transparent;
+  }
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none; /* Untuk Chrome, Safari, dan browser berbasis Webkit */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, #000 2%, #000 98%, transparent);
+  }
 }
 
-/* Style untuk seluruh scrollbar */
-::-webkit-scrollbar {
-  width: 10px; /* Lebar scrollbar */
-}
-
-/* Style untuk track (background scrollbar) */
-::-webkit-scrollbar-track {
-  background: #333333; /* Warna track */
-}
-
-/* Style untuk handle (bagian yang bisa digeser) */
-::-webkit-scrollbar-thumb {
-  background-color: #ff0000; /* Warna handle */
-  border-radius: 10px; /* Membuat handle melengkung */
-  border: 2px solid #333333; /* Menambahkan border di sekeliling handle */
-}
-
-/* Style untuk handle ketika di-hover */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Warna handle ketika di-hover */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-.scrollbar-hide {
-  -ms-overflow-style: none; /* Internet Explorer and Edge */
-  scrollbar-width: none; /* Firefox */
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
